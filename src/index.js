@@ -2,7 +2,7 @@
 
 // 입력시 실행될 함수
 
-function handleAdd() {
+function handleAdd(content = "") {
   const memoEl = document.getElementById("memo");
 
   // li 문서객체 생성
@@ -12,14 +12,15 @@ function handleAdd() {
   const btnRemove = document.createElement("button");
 
   //memo 입력값 가져오기 : .value
-  pEl.textContent = memoEl.value;
+  // || : or, 기본값 설정하기, 입력된 value값이 없으면 매개변수 content값을 기본값으로 입력
+  pEl.textContent = memoEl.value || content;
 
-  // btnRemove 삭제기능 구현
-  btnRemove.textContent = "삭제";
-  btnRemove.addEventListener("click", (remove) => {
-    remove.target.parentElement.remove();
-  });
-
+  if (memoEl.value == "") {
+    if (content == "") {
+      alert("메모를 입력해주세요");
+      return;
+    }
+  }
   // DOM 요소에 클래스 추가하기
   liEl.classList.add(
     "list-group-item",
@@ -35,7 +36,13 @@ function handleAdd() {
   liEl.appendChild(btnRemove);
   memoLiEl.appendChild(liEl);
   memoEl.value = ""; // 추가 후 입력내용 비움(초기화)
-}
+
+  // btnRemove 삭제기능 구현
+  btnRemove.textContent = "삭제";
+  btnRemove.addEventListener("click", (e) => {
+    e.target.parentElement.remove();
+  });
+} // handleAdd();
 
 // 입력(추가)버튼 선택
 const addBtn = document.getElementById("addBtn");
@@ -44,3 +51,9 @@ const addBtn = document.getElementById("addBtn");
 addBtn.addEventListener("click", () => {
   handleAdd();
 });
+
+// 기본데이터 추가
+handleAdd("밥하기");
+handleAdd("빨래하기");
+handleAdd("청소하기");
+handleAdd("강아지 산책 시키기");
