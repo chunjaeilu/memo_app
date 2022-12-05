@@ -21,7 +21,14 @@ function handleAdd() {
   });
 
   // DOM 요소에 클래스 추가하기
-  liEl.classList.add("list-group-item");
+  liEl.classList.add(
+    "list-group-item",
+    "d-flex",
+    "justify-content-between",
+    "align-items-center"
+  );
+  pEl.classList.add("m-0");
+  btnRemove.classList.add("btn", "btn-danger");
 
   // 입력값 출력하기
   liEl.appendChild(pEl);
